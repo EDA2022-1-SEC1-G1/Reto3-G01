@@ -19,11 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import controller
 import config as cf
 import sys
-import controller
 from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
 assert cf
 
 
@@ -36,8 +37,8 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("0- Cargar información en el catálogo")
+    print("1- ")
 
 catalog = None
 
@@ -47,11 +48,17 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
+    if int(inputs[0]) == 0:
         print("Cargando información de los archivos ....")
+        analizer=controller.inicializarAnalizer()
+        listaPlayers=controller.loadPlayers(analizer)
+        print(lt.getElement(listaPlayers,1))
+        print(lt.size(listaPlayers))
+        
+    elif int(inputs[0]) == 1:
+        nombreClub=str(input('Ingrese el Nombre del Club: '))
+        mapa=controller.mapPlayerClubDate(analizer, nombreClub)
 
-    elif int(inputs[0]) == 2:
-        pass
 
     else:
         sys.exit(0)

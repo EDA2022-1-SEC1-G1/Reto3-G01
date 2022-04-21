@@ -25,14 +25,20 @@ import model
 import csv
 
 
+
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
+def inicializarAnalizer():
+    return model.inicializarAnalizer()
+    
+def loadPlayers(analizer):
+    tagsfile = cf.data_dir + 'FIFA/fifa-players-2022-utf8-small.csv'
+    input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
+    for player in input_file:
+        listaPlayers=model.addPlayerLista(analizer, player)
+        model.addPlayerClubName(analizer, player)
+    return listaPlayers
 
-# Inicialización del Catálogo de libros
-
-# Funciones para la carga de datos
-
-# Funciones de ordenamiento
-
-# Funciones de consulta sobre el catálogo
+def mapPlayerClubDate(analizer, clubName):
+    return model.mapPlayerClubDate(analizer, clubName)
