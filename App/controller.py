@@ -32,13 +32,24 @@ El controlador se encarga de mediar entre la vista y el modelo.
 def inicializarAnalizer():
     return model.inicializarAnalizer()
     
-def loadPlayers(analizer):
+def loadData(analizer):
     tagsfile = cf.data_dir + 'FIFA/fifa-players-2022-utf8-small.csv'
     input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
-    for player in input_file:
-        listaPlayers=model.addPlayerLista(analizer, player)
-        model.addPlayerClubName(analizer, player)
-    return listaPlayers
+    for jugador in input_file:
+        model.addPlayerSofifaId(analizer, jugador)
+        model.jugadoresClub(analizer, jugador)
+        model.jugadoresPosicion(analizer, jugador)
+        model.jugadorSalario(analizer, jugador)
+        model.addPlayerBirthday(analizer, jugador)
+    return 
+def jugadoresClubFecha(analizer, nombreClub):
+    return model.jugadorClubFecha(analizer, nombreClub)
 
-def mapPlayerClubDate(analizer, clubName):
-    return model.mapPlayerClubDate(analizer, clubName)
+def jugadoresDesempenio(analizer, posicion, minOverall, maxOverall,minPotencial, maxPotencial, minSalario, maxSalario):
+    return model.jugadoresDesempenio(analizer, posicion, minOverall, maxOverall,minPotencial, maxPotencial, minSalario, maxSalario)
+
+def jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristica):
+    return model.jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristica)
+
+def jugadorFechaNacimiento(analizer, fechaInicio, fechaFinal, caracteristica):
+    return model.jugadorFechaNacimiento(analizer, fechaInicio, fechaFinal, caracteristica)
