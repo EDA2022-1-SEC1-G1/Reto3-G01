@@ -36,7 +36,7 @@ def loadData(analizer):
     tagsfile = cf.data_dir + 'FIFA/fifa-players-2022-utf8-small.csv'
     input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
     for jugador in input_file:
-        model.addPlayerSofifaId(analizer, jugador)
+        lista=model.addPlayerSofifaId(analizer, jugador)
         model.jugadoresClub(analizer, jugador)
         model.jugadoresPosicion(analizer, jugador)
         model.jugadorSalario(analizer, jugador)
@@ -48,7 +48,7 @@ def loadData(analizer):
         model.jugadorEstatura(analizer, jugador)
         model.jugadorPeso(analizer, jugador)
         model.jugadorLiberar(analizer, jugador)
-    return 
+    return lista
 def jugadoresClubFecha(analizer, nombreClub):
     return model.jugadorClubFecha(analizer, nombreClub)
 

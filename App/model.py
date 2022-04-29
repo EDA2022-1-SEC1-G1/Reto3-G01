@@ -82,7 +82,8 @@ def compareSofifaId(id1, id2):
 
 def addPlayerSofifaId(analizer, jugador):
     id=jugador['sofifa_id']
-    om.put(analizer['jugadorSofifaId'],id, jugador)
+    listaSofifa=om.put(analizer['jugadorSofifaId'],id, jugador)
+    return(listaSofifa)
     
 #REQUERIMIENTO 1
 def jugadoresClub(analizer, jugador):
@@ -321,6 +322,7 @@ def jugadorEdad(analizer, jugador):
         llaveValor=mp.get(analizer['jugadorEdad'], edad)
         listaJugadores=me.getValue(llaveValor)
         lt.addLast(listaJugadores, jugador)
+
 def jugadorEstatura(analizer, jugador):
     estatura=int(jugador['height_cm'])
     if mp.contains(analizer['jugadorEstatura'],estatura)==False:
@@ -371,18 +373,15 @@ def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
         mapaPropiedad=analizer['jugadorPeso']
     elif propiedad == 'release_clause_eur':
         mapaPropiedad=analizer['jugadorValor']
-    
     llaves=lt.newList('ARRAY_LIST')
     listaValoresFinal=lt.newList('ARRAY_LIST')
-    
+    listaAsteriscos=lt.newList('ARRAY_LIST')
+    listaCount=lt.newList('ARRAY_LIST')
     menorLlave=om.minKey(mapaPropiedad)
     mayorLlave=om.maxKey(mapaPropiedad)
-
     intervaloGrande=mayorLlave-menorLlave
     intervalos=intervaloGrande/segmentos
     menorLlave=mayorLlave-intervalos
-
-
     i=1
     while i<=segmentos:
         listaValoresTodos=om.values(mapaPropiedad, menorLlave, mayorLlave)
@@ -391,15 +390,16 @@ def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
             for jugador in lt.iterator(lista):
                 lt.addLast(listaTemporal,jugador)
         lt.addFirst(listaValoresFinal, (lt.size(listaTemporal)//niveles))
+        lt.addFirst(listaAsteriscos, (lt.size(listaTemporal)//niveles)*'*')
+        lt.addFirst(listaCount,lt.size(listaTemporal))
         tupla=(menorLlave, mayorLlave)
         lt.addFirst(llaves,tupla)
         menorLlave=menorLlave-intervalos
         mayorLlave=mayorLlave-intervalos
         i+=1
+    print (listaCount)
+    return llaves,listaCount, listaValoresFinal, listaAsteriscos
     
-
-    print(listaValoresFinal)
-    print(llaves)
 
 
 
