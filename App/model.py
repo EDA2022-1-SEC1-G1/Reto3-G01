@@ -53,6 +53,23 @@ def inicializarAnalizer():
     analizer['jugadorSalario']=om.newMap(omaptype='RBT',
                              comparefunction=funcionComparacion2)
     analizer["birthdayPlayer"] = om.newMap(omaptype='RBT', comparefunction=funcionComparacion2)
+    
+    analizer['jugadorOverall']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorPotencial']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorValor']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorSalario']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)                        
+    analizer['jugadorEdad']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorEstatura']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorPeso']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
+    analizer['jugadorLiberar']=om.newMap(omaptype='RBT',
+                             comparefunction=funcionComparacion)
     return analizer
 
 def compareSofifaId(id1, id2):
@@ -202,7 +219,7 @@ def jugadorSalario(analizer, jugador):
 def jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristica):
     listaJugadores=lt.newList('ARRAY_LIST')
     jugadoresSalario=analizer['jugadorSalario']
-    rangoSalario=om.values(jugadoresSalario, maxSalario, minSalario)
+    rangoSalario=om.values(jugadoresSalario, minSalario, maxSalario)
     for lista in lt.iterator(rangoSalario):
         for jugador in lt.iterator(lista):
             if caracteristica in jugador['player_tags']:
@@ -260,3 +277,133 @@ def funcionComparacion(valor1, valor2):
         return 1
     else:
         return -1
+
+#REQUERIMIENTO 5
+def jugadorOverall(analizer, jugador):
+    overall=int(jugador['overall'])
+    if mp.contains(analizer['jugadorOverall'],overall)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorOverall'], overall, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorOverall'], overall)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+
+def jugadorPotencial(analizer, jugador):
+    potencial=int(jugador['potential'])
+    if mp.contains(analizer['jugadorPotencial'],potencial)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorPotencial'], potencial, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorPotencial'], potencial)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+
+def jugadorValor(analizer, jugador):
+    valor=int(float(jugador['value_eur']))
+    if mp.contains(analizer['jugadorValor'],valor)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorValor'], valor, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorValor'], valor)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+def jugadorEdad(analizer, jugador):
+    edad=int(jugador['age'])
+    if mp.contains(analizer['jugadorEdad'],edad)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorEdad'], edad, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorEdad'], edad)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+def jugadorEstatura(analizer, jugador):
+    estatura=int(jugador['height_cm'])
+    if mp.contains(analizer['jugadorEstatura'],estatura)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorEstatura'], estatura, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorEstatura'], estatura)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+
+def jugadorPeso(analizer, jugador):
+    peso=int(jugador['weight_kg'])
+    if mp.contains(analizer['jugadorPeso'],peso)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,jugador)
+        mp.put(analizer['jugadorPeso'], peso, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorPeso'], peso)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+
+def jugadorLiberar(analizer, jugador):
+    liberar=int(float(jugador['release_clause_eur']))
+    if mp.contains(analizer['jugadorLiberar'],liberar)==False:
+        listaJugadores=lt.newList('ARRAY_LIST')
+        lt.addLast(listaJugadores,liberar)
+        mp.put(analizer['jugadorLiberar'], liberar, listaJugadores)
+    else:
+        llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
+        listaJugadores=me.getValue(llaveValor)
+        lt.addLast(listaJugadores, jugador)
+
+def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
+    if propiedad == 'overall':
+        mapaPropiedad=analizer['jugadorOverall']
+    if propiedad == 'potential':
+        mapaPropiedad=analizer['jugadorPotencial']
+    elif propiedad == 'value_eur':
+        mapaPropiedad=analizer['jugadorValor']
+    elif propiedad == 'wage_eur':
+        mapaPropiedad=analizer['jugadorSalario']
+    elif propiedad == 'age':
+        mapaPropiedad=analizer['jugadorEdad']
+    elif propiedad == 'height_cm':
+        mapaPropiedad=analizer['jugadorAltura']
+    elif propiedad == 'weight_cm':
+        mapaPropiedad=analizer['jugadorPeso']
+    elif propiedad == 'release_clause_eur':
+        mapaPropiedad=analizer['jugadorValor']
+    
+    llaves=lt.newList('ARRAY_LIST')
+    listaValoresFinal=lt.newList('ARRAY_LIST')
+    
+    menorLlave=om.minKey(mapaPropiedad)
+    mayorLlave=om.maxKey(mapaPropiedad)
+
+    intervaloGrande=mayorLlave-menorLlave
+    intervalos=intervaloGrande/segmentos
+    menorLlave=mayorLlave-intervalos
+
+
+    i=1
+    while i<=segmentos:
+        listaValoresTodos=om.values(mapaPropiedad, menorLlave, mayorLlave)
+        listaTemporal=lt.newList('ARRAY_LIST')
+        for lista in lt.iterator(listaValoresTodos):
+            for jugador in lt.iterator(lista):
+                lt.addLast(listaTemporal,jugador)
+        lt.addFirst(listaValoresFinal, (lt.size(listaTemporal)//niveles))
+        tupla=(menorLlave, mayorLlave)
+        lt.addFirst(llaves,tupla)
+        menorLlave=menorLlave-intervalos
+        mayorLlave=mayorLlave-intervalos
+        i+=1
+    
+
+    print(listaValoresFinal)
+    print(llaves)
+
+
+
+
+
+
+

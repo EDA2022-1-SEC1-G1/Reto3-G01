@@ -38,15 +38,440 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("0- Cargar información en el catálogo")
-    print("1- las cinco adquisiciones más recientes de un club")
-    print("2- los jugadores de cierta posición dentro de un rango de desempeño, potencial y salario")
-    print('3- Reportar los jugadores dentro de un rango salarial y con cierta etiqueta: ')
-    
+    print("0- Cargar información en el catálogo (cargar datos)")
+    print("1- las cinco adquisiciones más recientes de un club (req 1): ")
+    print("2- los jugadores de cierta posición dentro de un rango de desempeño, potencial y salario (req 2): ")
+    print('3- Reportar los jugadores dentro de un rango salarial y con cierta etiqueta (req 3): ')
+    print('4- Reportar los jugadores con cierto rasgo característico y nacidos en un periodo de tiempo (req 4): ')
+
+
+def printResultsReq1(lista, sample, analizer):
+    size =lt.size(lista)
+    numJugadores=lt.size(lista)
+    print("------------------------------------------------------------------------------------------------------------------------------------------")
+    print("\nNumero total ADQUISICIONES del club: " + str(numJugadores) + "\n")
+    print("------------------------------------------------------------------------------------------------------------------------------------------")
+    if size <= sample*1:
+        print("Las adquisiciones organizadas por parámetros son: ")
+        for jugador in lt.iterator(lista):
+
+            if jugador["short_name"] == "":
+                shortName= "UNKNOWN"
+            else:
+                shortName = jugador["short_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+
+            if jugador["overall"] == "":
+                overall= "UNKNOWN"
+            else: 
+                overall = jugador["overall"]
+
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["wage_eur"] == "":
+                valorSalario = "UNKNOWN"
+            else: 
+                valorSalario = jugador["wage_eur"]
+
+            if jugador["release_clause_eur"] == "":
+                valorClausulaContrato = "UNKNOWN"
+            else: 
+                valorClausulaContrato = jugador["release_clause_eur"]
+
+            if jugador["club_joined"] == "":
+                fechaVinculacion = "UNKNOWN"
+            else: 
+                fechaVinculacion = jugador["club_joined"]
+
+            if jugador["player_positions"] == "":
+                jugadorPosiciones = "UNKNOWN"
+            else: 
+                jugadorPosiciones = jugador["player_positions"]
+
+            if jugador["club_position"] == "":
+                clubPosiciones = "UNKNOWN"
+            else: 
+                clubPosiciones = jugador["club_position"]
+
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+
+            print("\nNombre corto del jugador: " + str(shortName) + "\nFecha de nacimiento: " + str(fechaNacimiento) + "\nEdad: " + str(age) 
+            + "\nDesempeño general: " + str(overall) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nValor del salario del jugador: " + str(valorSalario) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nFecha de vinculación al club: " + str(fechaVinculacion)
+            + "\nPosiciones en las que puede jugar : " + str(jugadorPosiciones) + " y la que ocupa en el club: " + str(clubPosiciones) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
+    else:
+        print("------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Los cinco JUGADORES más recientemente vinculados al club son: ")
+        i = 1
+        while i<=sample:
+            jugador = lt.getElement(lista, i)
+
+        if jugador["short_name"] == "":
+            shortName= "UNKNOWN"
+        else:
+            shortName = jugador["short_name"]
+
+        if jugador["age"] == "":
+            age = "UNKNOWN"
+        else: 
+            age = jugador["age"]
+
+        if jugador["dob"] == "":
+            fechaNacimiento = "UNKNOWN"
+        else: 
+            fechaNacimiento = jugador["dob"]
+
+        if jugador["overall"] == "":
+            overall= "UNKNOWN"
+        else: 
+            overall = jugador["overall"]
+
+        if jugador["nationality_name"] == "":
+            nacionalidad = "UNKNOWN"
+        else: 
+            nacionalidad = jugador["nationality_name"]
+
+        if jugador["value_eur"] == "":
+            valorContrato = "UNKNOWN"
+        else: 
+            valorContrato = jugador["value_eur"]
+
+        if jugador["wage_eur"] == "":
+            valorSalario = "UNKNOWN"
+        else: 
+            valorSalario = jugador["wage_eur"]
+
+        if jugador["release_clause_eur"] == "":
+            valorClausulaContrato = "UNKNOWN"
+        else: 
+            valorClausulaContrato = jugador["release_clause_eur"]
+
+        if jugador["club_joined"] == "":
+            fechaVinculacion = "UNKNOWN"
+        else: 
+            fechaVinculacion = jugador["club_joined"]
+
+        if jugador["player_positions"] == "":
+            jugadorPosiciones = "UNKNOWN"
+        else: 
+            jugadorPosiciones = jugador["player_positions"]
+
+        if jugador["club_position"] == "":
+            clubPosiciones = "UNKNOWN"
+        else: 
+            clubPosiciones = jugador["club_position"]
+
+        if jugador["player_traits"] == "":
+            playerTraits = "UNKNOWN"
+        else: 
+            playerTraits = jugador["player_traits"]
+
+        if jugador["player_tags"] == "":
+            playerTags = "UNKNOWN"
+        else: 
+            playerTags= jugador["player_tags"]
+
+        print("\nNombre corto del jugador: " + str(shortName) + "\nFecha de nacimiento: " + str(fechaNacimiento) + "\nEdad: " + str(age) 
+        + "\nDesempeño general: " + str(overall) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+        + "\nValor del salario del jugador: " + str(valorSalario) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nFecha de vinculación al club: " + str(fechaVinculacion)
+        + "\nPosiciones en las que puede jugar : " + str(jugadorPosiciones) + " y la que ocupa en el club: " + str(clubPosiciones) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
+        i+=1
+
+    print("\n------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+def printResultsReq2(lista, sample, analizer):
+    size=lt.size(lista)
+    nunJugadores = lt.size(lista)
+    print("------------------------------------------------------------------------------------------------------------------------------------------")
+    print("\nNumero de JUGADORES que cumplen con los parámetros: " + str(nunJugadores) + "\n")
+    if size <=sample*2:
+        print("Los jugadores organizados por parámetros son: ")
+        for jugador in lt.iterator(lista):
+            print("\nNombre corto del jugador: " + str(jugador["short_name"])+ "\nFecha de nacimiento y edad: " + str(jugador["dob"] + "y" + str(jugador["age"])) + "\nNacionalidad: " + str(jugador["nationality_name"]) + "\nValor del contrato del jugador: " + str(jugador["value_eur"])
+            + "\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nValor de la cláusula de liberación del jugador: " + str(jugador["release_clause_eur"]) + "\nPotencial: " + str(jugador["potential"]) + "\nDesempeño general: " + str(jugador["overall"])
+            + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"]) + "\nComentarios: " + str(jugador["player_traits"]) + "\nEtiquetas: " + str(jugador["player_tags"]))
+    else:
+        print("---------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Los primeros 3 JUGADORES que cumplen los parámetros son: ")
+        i = 1 
+        while i <= sample:
+            jugador=lt.getElement(lista, i)
+
+            if jugador["short_name"] == "":
+                shortName= "UNKNOWN"
+            else: 
+                shortName = jugador["short_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["release_clause_eur"] == "":
+                valorClausulaContrato = "UNKNOWN"
+            else: 
+                valorClausulaContrato = jugador["release_clause_eur"]
+            
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+
+            print("\nNombre corto del jugador: " + str(shortName)+ "\nFecha de nacimiento y edad: " + str(fechaNacimiento)+ "y" + str(age) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nPotencial: " + str(jugador["potential"]) + "\nDesempeño general: " + str(jugador["overall"])
+            + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"]) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
+            i+=1
+        print("\n------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Los ultimos 3 JUGADORES que cumplen con los parámetros son: ")
+        i = size-(sample-1)
+        while i <= size:
+            jugador= lt.getElement(lista, i)
+
+            if jugador["short_name"] == "":
+                shortName= "UNKNOWN"
+            else: 
+                shortName = jugador["short_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["release_clause_eur"] == "":
+                valorClausulaContrato = "UNKNOWN"
+            else: 
+                valorClausulaContrato = jugador["release_clause_eur"]
+            
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+
+            print("\nNombre corto del jugador: " + str(shortName)+ "\nFecha de nacimiento y edad: " + str(fechaNacimiento) + " y " + str(age) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nPotencial: " + str(jugador["potential"]) + "\nDesempeño general: " + str(jugador["overall"])
+            + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"]) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
+            i+=1
+        print("\n------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+def printResultsReq3(lista, sample, analizer):
+    size=lt.size(lista)
+    numJugadores=lt.size(lista)
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print("\nNumero de Jugadores que cumplen con los parámetros: " + str(numJugadores) + "\n")
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------")
+    if size <=sample*2:
+        print("Los jugadores organizados por parámetros son: ")
+        for jugador in lt.iterator(lista):
+            print("\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nDesempeño general: " + str(jugador["overall"]) + "\nPotencial: " + str(jugador["potential"]) + "\nNombre completo del jugador: " + str(jugador["long_name"]) + "\nFecha de nacimiento: " + str(jugador["dob"]) 
+            + "\nEdad del jugador: " + str(jugador["age"]) + "\nLiga a la que pertenece el club: " + str(jugador["league_name"]) + "\nClub actual: " + str(jugador["club_name"]) + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"])
+            + "\nNacionalidad: " + str(jugador["nationality_name"]) + "\nValor del contrato del jugador: " + str(jugador["value_eur"])
+            + "\nComentarios: " + str(jugador["player_traits"]) + "\nEtiquetas: " + str(jugador["player_tags"]))
+
+    else:
+        print("--------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Los primeros 3 JUGADORES que cumplen con los parámetros son: ")
+        i=1
+        while i<=sample:
+            jugador=lt.getElement(lista, i)
+
+            if jugador["overall"] == "":
+                overall = "UNKNOWN"
+            else: 
+                overall= jugador["overall"]
+
+            if jugador["potential"] == "":
+                potential = "UNKNOWN"
+            else: 
+                potential = jugador["potential"]
+
+            if jugador["long_name"] == "":
+                longName= "UNKNOWN"
+            else: 
+                longName = jugador["long_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["league_name"] == "":
+                nombreLiga = "UNKNOWN"
+            else: 
+                nombreLiga = jugador["league_name"]
+
+            if jugador["club_name"] == "":
+                nombreClub = "UNKNOWN"
+            else: 
+                nombreClub = jugador["club_name"]
+
+            if jugador["player_positions"] == "":
+                posicion = "UNKNOWN"
+            else: 
+                posicion = jugador["player_positions"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+            
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+
+            print("\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nDesempeño general: " + str(overall) + "\nPotencial: " + str(potential) + "\nNombre completo del jugador: " + str(longName) + "\nFecha de nacimiento: " + str(fechaNacimiento) 
+            + "\nEdad del jugador: " + str(age) + "\nLiga a la que pertenece el club: " + str(nombreLiga) + "\nClub actual: " + str(nombreClub) + "\nPosiciones en las que puede jugar: " + str(posicion)
+            + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(jugador["player_tags"]))
+            i += 1
+        print("\n--------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Los últimos 3 JUGADORES que cumplen los parámetros son: ")
+        i = size-(sample-1)
+        while i<=size:
+            jugador=lt.getElement(lista,i)
+            if jugador["overall"] == "":
+                overall = "UNKNOWN"
+            else: 
+                overall= jugador["overall"]
+
+            if jugador["potential"] == "":
+                potential = "UNKNOWN"
+            else: 
+                potential = jugador["potential"]
+
+            if jugador["long_name"] == "":
+                longName= "UNKNOWN"
+            else: 
+                longName = jugador["long_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["league_name"] == "":
+                nombreLiga = "UNKNOWN"
+            else: 
+                nombreLiga = jugador["league_name"]
+
+            if jugador["club_name"] == "":
+                nombreClub = "UNKNOWN"
+            else: 
+                nombreClub = jugador["club_name"]
+
+            if jugador["player_positions"] == "":
+                posicion = "UNKNOWN"
+            else: 
+                posicion = jugador["player_positions"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+            
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+
+            print("\nValor del salario del jugador: " + str(jugador["wage_eur"]) + "\nDesempeño general: " + str(overall) + "\nPotencial: " + str(potential) + "\nNombre completo del jugador: " + str(longName) + "\nFecha de nacimiento: " + str(fechaNacimiento) 
+            + "\nEdad del jugador: " + str(age) + "\nLiga a la que pertenece el club: " + str(nombreLiga) + "\nClub actual: " + str(nombreClub) + "\nPosiciones en las que puede jugar: " + str(posicion)
+            + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(jugador["player_tags"]))
+            i+=1
+        print("\n--------------------------------------------------------------------------------------------------------------------------------------------------------")
+
 def printResultsReq4(lista, sample, analizer):
     size=lt.size(lista)
     numJugadores=lt.size(lista)
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("\nNumero de Jugadores que cumplen con los parámetros: " + str(numJugadores)+"\n")
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------")
     if size <= sample*2:
         print("Los jugadores organizados por parámetros son: ")
         for jugador in lt.iterator(lista):
@@ -60,25 +485,141 @@ def printResultsReq4(lista, sample, analizer):
         i = 1
         while i <= sample:
             jugador= lt.getElement(lista, i)
-            if jugador["player_tags"] == "":
+
+            if jugador["overall"] == "":
                 overall = "UNKNOWN"
             else: 
-                overall= jugador["player_tags"]
+                overall= jugador["overall"]
+
+            if jugador["potential"] == "":
+                potential = "UNKNOWN"
+            else: 
+                potential = jugador["potential"]
+
+            if jugador["long_name"] == "":
+                longName= "UNKNOWN"
+            else: 
+                longName = jugador["long_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["league_name"] == "":
+                nombreLiga = "UNKNOWN"
+            else: 
+                nombreLiga = jugador["league_name"]
+
+            if jugador["club_name"] == "":
+                nombreClub = "UNKNOWN"
+            else: 
+                nombreClub = jugador["club_name"]
+
+            if jugador["player_positions"] == "":
+                posicion = "UNKNOWN"
+            else: 
+                posicion = jugador["player_positions"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["wage_eur"] == "":
+                valorSalario = "UNKNOWN"
+            else: 
+                valorSalario = jugador["wage_eur"]
+
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
             
-            print("\nFecha de nacimiento: " + str(jugador["dob"]) + "\nDesempeño general: " + str(jugador["overall"]) + "\nPotencial: " + str(jugador["potential"])+ "\nNombre completo del jugador: " + str(jugador["long_name"])+ "\nEdad del jugador: " + str(jugador["age"]) 
-            + "\nLiga a la que pertenece el club: " + str(jugador["league_name"]) + "\nClub actual: " + str(jugador["club_name"]) + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"])
-            + "\nNacionalidad: " + str(jugador["nationality_name"]) + "\nValor del contrato del jugador: " + str(jugador["value_eur"]) + "\nValor del salario del jugador: " + str(jugador["wage_eur"]) 
-            + "\nComentarios: " + str(jugador["player_traits"]) + "\nEtiquetas: " + str(jugador["player_tags"]))
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+        
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+            
+            print("\nFecha de nacimiento: " + str(jugador["dob"]) + "\nDesempeño general: " + str(overall) + "\nPotencial: " + str(potential)+ "\nNombre completo del jugador: " + str(longName)+ "\nEdad del jugador: " + str(age) 
+            + "\nLiga a la que pertenece el club: " + str(nombreLiga) + "\nClub actual: " + str(nombreClub) + "\nPosiciones en las que puede jugar: " + str(posicion)
+            + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato) + "\nValor del salario del jugador: " + str(valorSalario) 
+            + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
             i+=1
         print('\n--------------------------------------------------------------------------------------------------------------------------------------------------------')
         print("Los últimos 3 JUGADORES que cumplen los parámetros son: ")
         i = size-(sample-1)
         while i <= size:
             jugador= lt.getElement(lista, i)
-            print("\nFecha de nacimiento: " + str(jugador["dob"]) + "\nDesempeño general: " + str(jugador["overall"]) + "\nPotencial: " + str(jugador["potential"])+ "\nNombre completo del jugador: " + str(jugador["long_name"])+ "\nEdad del jugador: " + str(jugador["age"]) 
-            + "\nLiga a la que pertenece el club: " + str(jugador["league_name"]) + "\nClub actual: " + str(jugador["club_name"]) + "\nPosiciones en las que puede jugar: " + str(jugador["player_positions"])
-            + "\nNacionalidad: " + str(jugador["nationality_name"]) + "\nValor del contrato del jugador: " + str(jugador["value_eur"]) + "\nValor del salario del jugador: " + str(jugador["wage_eur"]) 
-            + "\nComentarios: " + str(jugador["player_traits"]) + "\nEtiquetas: " + str(jugador["player_tags"]))
+            
+            if jugador["overall"] == "":
+                overall = "UNKNOWN"
+            else: 
+                overall= jugador["overall"]
+
+            if jugador["potential"] == "":
+                potential = "UNKNOWN"
+            else: 
+                potential = jugador["potential"]
+
+            if jugador["long_name"] == "":
+                longName= "UNKNOWN"
+            else: 
+                longName = jugador["long_name"]
+
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+
+            if jugador["league_name"] == "":
+                nombreLiga = "UNKNOWN"
+            else: 
+                nombreLiga = jugador["league_name"]
+
+            if jugador["club_name"] == "":
+                nombreClub = "UNKNOWN"
+            else: 
+                nombreClub = jugador["club_name"]
+
+            if jugador["player_positions"] == "":
+                posicion = "UNKNOWN"
+            else: 
+                posicion = jugador["player_positions"]
+
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+
+            if jugador["wage_eur"] == "":
+                valorSalario = "UNKNOWN"
+            else: 
+                valorSalario = jugador["wage_eur"]
+
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+            
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+        
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+            print("\nFecha de nacimiento: " + str(jugador["dob"]) + "\nDesempeño general: " + str(overall) + "\nPotencial: " + str(potential)+ "\nNombre completo del jugador: " + str(longName)+ "\nEdad del jugador: " + str(age) 
+            + "\nLiga a la que pertenece el club: " + str(nombreLiga) + "\nClub actual: " + str(nombreClub) + "\nPosiciones en las que puede jugar: " + str(posicion)
+            + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato) + "\nValor del salario del jugador: " + str(valorSalario) 
+            + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
             i+=1
         print('\n--------------------------------------------------------------------------------------------------------------------------------------------------------')
 
@@ -91,14 +632,12 @@ while True:
     if int(inputs[0]) == 0:
         print("Cargando información de los archivos ....")
         analizer=controller.inicializarAnalizer()
-        controller.loadData(analizer)
+        listaData= controller.loadData(analizer)
 
     elif int(inputs[0]) == 1: 
         nombreClub=input('Ingrese Nombre Club: ')
         listaJugadores=controller.jugadoresClubFecha(analizer, nombreClub)
-        print(lt.size(listaJugadores))
-        for jugador in lt.iterator(listaJugadores):
-            print (jugador['short_name'])
+        printResultsReq1(listaJugadores, 5, analizer)
 
     elif int(inputs[0]) == 2: 
         posicion=input('Ingrese la posicion deseada: ')
@@ -109,22 +648,27 @@ while True:
         minSalario=int(input('Minimo Salario: '))
         maxSalario=int(input('Maximo Salario: '))
         listaJugadores=controller.jugadoresDesempenio(analizer, posicion, minOverall, maxOverall, minPotencial, maxPotencial, minSalario, maxSalario)
-        for jugador in lt.iterator(listaJugadores):
-            print (jugador['short_name'])
+        printResultsReq2(listaJugadores, 3, analizer)
             
     elif int(inputs[0])==3:
         minSalario=int(input('Límite inferior del salario recibido por los jugadores: '))
         maxSalario=int(input('Límite superior del salario recibido por los jugadores: ' ))
-        caracteristica=(input('Una de las características que identifican a los jugadores '))
+        caracteristica=(input('Una de las características que identifican a los jugadores: '))
         listaJugadores=controller.jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristica)
-        
-        for jugador in lt.iterator(listaJugadores):
-            print (jugador['short_name'])
+        printResultsReq3(listaJugadores, 3, analizer)
+
     elif int(inputs[0])== 4:
         limiteInferiorFechaNacimiento=str(input("Límite inferior de la fecha de nacimiento del jugador: "))
         limiteSuperiorFechaNacimiento=str(input("Límite superior de la fecha de nacimiento del jugador: "))
         caracteristicaJugador=str(input("Una caracteristica que identifique al jugador: "))
         listaFinal= controller.jugadorFechaNacimiento(analizer, limiteInferiorFechaNacimiento, limiteSuperiorFechaNacimiento, caracteristicaJugador)
         printResultsReq4(listaFinal, 3, analizer)
+
+    elif int(inputs[0])== 5:
+        segmentos=int(input('Ingrese Numero de segmentos: '))
+        niveles=int(input('Ingrese Numero niveles: '))
+        propiedad=(input('Ingrese Propiedad: '))
+        controller.jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad)
+
     else:
         sys.exit(0)

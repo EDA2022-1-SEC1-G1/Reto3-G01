@@ -41,6 +41,13 @@ def loadData(analizer):
         model.jugadoresPosicion(analizer, jugador)
         model.jugadorSalario(analizer, jugador)
         model.addPlayerBirthday(analizer, jugador)
+        model.jugadorOverall(analizer, jugador)
+        model.jugadorPotencial(analizer, jugador)
+        model.jugadorValor(analizer, jugador)
+        model.jugadorEdad(analizer, jugador)
+        model.jugadorEstatura(analizer, jugador)
+        model.jugadorPeso(analizer, jugador)
+        model.jugadorLiberar(analizer, jugador)
     return 
 def jugadoresClubFecha(analizer, nombreClub):
     return model.jugadorClubFecha(analizer, nombreClub)
@@ -53,3 +60,6 @@ def jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristi
 
 def jugadorFechaNacimiento(analizer, fechaInicio, fechaFinal, caracteristica):
     return model.jugadorFechaNacimiento(analizer, fechaInicio, fechaFinal, caracteristica)
+
+def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
+    return model.jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad)
