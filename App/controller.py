@@ -32,8 +32,8 @@ El controlador se encarga de mediar entre la vista y el modelo.
 def inicializarAnalizer():
     return model.inicializarAnalizer()
     
-def loadData(analizer):
-    tagsfile = cf.data_dir + 'FIFA/fifa-players-2022-utf8-small.csv'
+def loadData(analizer, valor):
+    tagsfile = cf.data_dir + 'FIFA/fifa-players-2022-utf8-'+valor+'.csv'
     input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
     for jugador in input_file:
         lista=model.addPlayerSofifaId(analizer, jugador)

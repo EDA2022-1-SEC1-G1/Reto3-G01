@@ -52,8 +52,8 @@ def inicializarAnalizer():
                              loadfactor=0.5)
     analizer['jugadorSalario']=om.newMap(omaptype='RBT',
                              comparefunction=funcionComparacion2)
-    analizer["birthdayPlayer"] = om.newMap(omaptype='RBT', comparefunction=funcionComparacion2)
-    
+    analizer["birthdayPlayer"] = om.newMap(omaptype='RBT', 
+                            comparefunction=funcionComparacion2)
     analizer['jugadorOverall']=om.newMap(omaptype='RBT',
                              comparefunction=funcionComparacion)
     analizer['jugadorPotencial']=om.newMap(omaptype='RBT',
@@ -100,13 +100,7 @@ def jugadoresClub(analizer, jugador):
 def jugadorClubFecha(analizer, nombreClub):
     llaveValor=mp.get(analizer['jugadorClub'], nombreClub)
     listaJugadores=me.getValue(llaveValor)
-    jugadoresFecha=om.newMap(omaptype='RBT',)
-    for jugador in lt.iterator(listaJugadores):
-        fecha=jugador['club_joined']
-        fecha=datetime.datetime.strptime(fecha, '%Y-%m-%d')
-        om.put(jugadoresFecha, fecha, jugador)
-        listaJugadores=om.valueSet(jugadoresFecha)
-        listaJugadores=mer.sort(listaJugadores, compReq1)
+    listaJugadores=mer.sort(listaJugadores, compReq1)
     return listaJugadores
 
 def compReq1(jugador1, jugador2):
@@ -175,14 +169,25 @@ def jugadoresDesempenio(analizer, posicion, minOverall, maxOverall,minPotencial,
     for lista in lt.iterator(listaPotencial):
         for jugador in lt.iterator(lista):
             salario=int(float(jugador['wage_eur']))
-            if mp.contains(mapaSalario, salario)==False:
-                listaJugadores=lt.newList('ARRAY_LIST')
-                lt.addLast(listaJugadores, jugador)
-                om.put(mapaSalario, salario, listaJugadores)
+            if salario!='':
+                if mp.contains(mapaSalario, salario)==False:
+                    listaJugadores=lt.newList('ARRAY_LIST')
+                    lt.addLast(listaJugadores, jugador)
+                    om.put(mapaSalario, salario, listaJugadores)
+                else:
+                    llaveValor=om.get(mapaSalario,salario)
+                    listaJugadores=me.getValue(llaveValor)
+                    lt.addLast(listaJugadores, jugador)
             else:
-                llaveValor=om.get(mapaSalario,salario)
-                listaJugadores=me.getValue(llaveValor)
-                lt.addLast(listaJugadores, jugador)
+                salario=-1
+                if mp.contains(mapaSalario, salario)==False:
+                    listaJugadores=lt.newList('ARRAY_LIST')
+                    lt.addLast(listaJugadores, jugador)
+                    om.put(mapaSalario, salario, listaJugadores)
+                else:
+                    llaveValor=om.get(mapaSalario,salario)
+                    listaJugadores=me.getValue(llaveValor)
+                    lt.addLast(listaJugadores, jugador)
     listasalario= om.values(mapaSalario, minSalario, maxSalario)
     listaJugadores=lt.newList('ARRAY_LIST')
     for lista in lt.iterator(listasalario):
@@ -193,16 +198,16 @@ def jugadoresDesempenio(analizer, posicion, minOverall, maxOverall,minPotencial,
 
 def compReq2(valor1, valor2):
     if valor2['overall']!= valor1['overall']:
-        return valor2['overall']<valor1['overall']
+        return int(valor2['overall'])<int(valor1['overall'])
     else:
         if valor1['potential']!= valor2['potential']:
-            return valor2['potential']< valor1['potential']
+            return int(valor2['potential'])< int(valor1['potential'])
         else:
-            if valor2['wage_eur']!= valor1['wage_eur']:
-                return valor1['wage_eur'] < valor2['wage_eur']
+            if float(valor2['wage_eur'])!= float(valor1['wage_eur']):
+                return float(valor1['wage_eur']) < float(valor2['wage_eur'])
             else:
                 if valor2['age']!= valor1['age']:
-                    return valor1['age']< valor2['age']
+                    return int(valor1['age'])< int(valor2['age'])
                 else:
                     return  valor1['short_name']< valor2['short_name']
     
@@ -225,16 +230,20 @@ def jugadoresSalarioCaracteristica(analizer,minSalario, maxSalario, caracteristi
         for jugador in lt.iterator(lista):
             if caracteristica in jugador['player_tags']:
                 lt.addLast(listaJugadores, jugador)
-    listaJugadores=mer.sort(listaJugadores, compReq2)
+    listaJugadores=mer.sort(listaJugadores, compReq3)
     return listaJugadores
+
 def compReq3(valor1, valor2):
-    if valor2['overall']!= valor1['overall']:
-        return valor2['overall']<valor1['overall']
+    if float(valor2['wage_eur'])!=float(valor1['wage_eur']):
+        return float(valor2['wage_eur'])<float(valor1['wage_eur'])
     else:
-        if valor1['potential']!= valor2['potential']:
-            return valor2['potential']< valor1['potential']
+        if int(valor2['overall'])!= int(valor1['overall']):
+            return int(valor2['overall'])<int(valor1['overall'])
         else:
-            return valor1['long_name']<valor2['long_name']
+            if int(valor1['potential'])!= int(valor2['potential']):
+                return int(valor2['potential'])< int(valor1['potential'])
+            else:
+                return valor1['long_name']<valor2['long_name']
 
 #REQUERIMIENTO 4
 def addPlayerBirthday(analizer, player):
@@ -303,15 +312,27 @@ def jugadorPotencial(analizer, jugador):
         lt.addLast(listaJugadores, jugador)
 
 def jugadorValor(analizer, jugador):
-    valor=int(float(jugador['value_eur']))
-    if mp.contains(analizer['jugadorValor'],valor)==False:
-        listaJugadores=lt.newList('ARRAY_LIST')
-        lt.addLast(listaJugadores,jugador)
-        mp.put(analizer['jugadorValor'], valor, listaJugadores)
+    if jugador['value_eur']!='':
+        valor=int(float(jugador['value_eur']))
+        if mp.contains(analizer['jugadorValor'],valor)==False:
+            listaJugadores=lt.newList('ARRAY_LIST')
+            lt.addLast(listaJugadores,jugador)
+            mp.put(analizer['jugadorValor'], valor, listaJugadores)
+        else:
+            llaveValor=mp.get(analizer['jugadorValor'], valor)
+            listaJugadores=me.getValue(llaveValor)
+            lt.addLast(listaJugadores, jugador)
     else:
-        llaveValor=mp.get(analizer['jugadorValor'], valor)
-        listaJugadores=me.getValue(llaveValor)
-        lt.addLast(listaJugadores, jugador)
+        valor=-1
+        if mp.contains(analizer['jugadorValor'],valor)==False:
+            listaJugadores=lt.newList('ARRAY_LIST')
+            lt.addLast(listaJugadores,jugador)
+            mp.put(analizer['jugadorValor'], valor, listaJugadores)
+        else:
+            llaveValor=mp.get(analizer['jugadorValor'], valor)
+            listaJugadores=me.getValue(llaveValor)
+            lt.addLast(listaJugadores, jugador)
+
 def jugadorEdad(analizer, jugador):
     edad=int(jugador['age'])
     if mp.contains(analizer['jugadorEdad'],edad)==False:
@@ -346,15 +367,26 @@ def jugadorPeso(analizer, jugador):
         lt.addLast(listaJugadores, jugador)
 
 def jugadorLiberar(analizer, jugador):
-    liberar=int(float(jugador['release_clause_eur']))
-    if mp.contains(analizer['jugadorLiberar'],liberar)==False:
-        listaJugadores=lt.newList('ARRAY_LIST')
-        lt.addLast(listaJugadores,liberar)
-        mp.put(analizer['jugadorLiberar'], liberar, listaJugadores)
-    else:
-        llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
-        listaJugadores=me.getValue(llaveValor)
-        lt.addLast(listaJugadores, jugador)
+     if jugador['release_clause_eur']!='':
+        liberar=int(float(jugador['release_clause_eur']))
+        if mp.contains(analizer['jugadorLiberar'],liberar)==False:
+            listaJugadores=lt.newList('ARRAY_LIST')
+            lt.addLast(listaJugadores,liberar)
+            mp.put(analizer['jugadorLiberar'], liberar, listaJugadores)
+        else:
+            llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
+            listaJugadores=me.getValue(llaveValor)
+            lt.addLast(listaJugadores, jugador)
+     else: 
+        liberar=-1
+        if mp.contains(analizer['jugadorLiberar'],liberar)==False:
+            listaJugadores=lt.newList('ARRAY_LIST')
+            lt.addLast(listaJugadores,liberar)
+            mp.put(analizer['jugadorLiberar'], liberar, listaJugadores)
+        else:
+            llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
+            listaJugadores=me.getValue(llaveValor)
+            lt.addLast(listaJugadores, jugador)
 
 def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
     if propiedad == 'overall':

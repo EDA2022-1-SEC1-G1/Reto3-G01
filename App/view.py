@@ -285,63 +285,63 @@ def printResultsReq1(lista, sample):
         i = 1
         while i<=sample:
             jugador = lt.getElement(lista, i)
-        if jugador["short_name"] == "":
-            shortName= "UNKNOWN"
-        else:
-            shortName = jugador["short_name"]
-        if jugador["age"] == "":
-            age = "UNKNOWN"
-        else: 
-            age = jugador["age"]
-        if jugador["dob"] == "":
-            fechaNacimiento = "UNKNOWN"
-        else: 
-            fechaNacimiento = jugador["dob"]
-        if jugador["overall"] == "":
-            overall= "UNKNOWN"
-        else: 
-            overall = jugador["overall"]
-        if jugador["nationality_name"] == "":
-            nacionalidad = "UNKNOWN"
-        else: 
-            nacionalidad = jugador["nationality_name"]
-        if jugador["value_eur"] == "":
-            valorContrato = "UNKNOWN"
-        else: 
-            valorContrato = jugador["value_eur"]
-        if jugador["wage_eur"] == "":
-            valorSalario = "UNKNOWN"
-        else: 
-            valorSalario = jugador["wage_eur"]
-        if jugador["release_clause_eur"] == "":
-            valorClausulaContrato = "UNKNOWN"
-        else: 
-            valorClausulaContrato = jugador["release_clause_eur"]
-        if jugador["club_joined"] == "":
-            fechaVinculacion = "UNKNOWN"
-        else: 
-            fechaVinculacion = jugador["club_joined"]
-        if jugador["player_positions"] == "":
-            jugadorPosiciones = "UNKNOWN"
-        else: 
-            jugadorPosiciones = jugador["player_positions"]
-        if jugador["club_position"] == "":
-            clubPosiciones = "UNKNOWN"
-        else: 
-            clubPosiciones = jugador["club_position"]
-        if jugador["player_traits"] == "":
-            playerTraits = "UNKNOWN"
-        else: 
-            playerTraits = jugador["player_traits"]
-        if jugador["player_tags"] == "":
-            playerTags = "UNKNOWN"
-        else: 
-            playerTags= jugador["player_tags"]
-        print("\nNombre corto del jugador: " + str(shortName) + "\nFecha de nacimiento: " + str(fechaNacimiento) + "\nEdad: " + str(age) 
-        + "\nDesempeño general: " + str(overall) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
-        + "\nValor del salario del jugador: " + str(valorSalario) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nFecha de vinculación al club: " + str(fechaVinculacion)
-        + "\nPosiciones en las que puede jugar : " + str(jugadorPosiciones) + " y la que ocupa en el club: " + str(clubPosiciones) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
-        i+=1
+            if jugador["short_name"] == "":
+                shortName= "UNKNOWN"
+            else:
+                shortName = jugador["short_name"]
+            if jugador["age"] == "":
+                age = "UNKNOWN"
+            else: 
+                age = jugador["age"]
+            if jugador["dob"] == "":
+                fechaNacimiento = "UNKNOWN"
+            else: 
+                fechaNacimiento = jugador["dob"]
+            if jugador["overall"] == "":
+                overall= "UNKNOWN"
+            else: 
+                overall = jugador["overall"]
+            if jugador["nationality_name"] == "":
+                nacionalidad = "UNKNOWN"
+            else: 
+                nacionalidad = jugador["nationality_name"]
+            if jugador["value_eur"] == "":
+                valorContrato = "UNKNOWN"
+            else: 
+                valorContrato = jugador["value_eur"]
+            if jugador["wage_eur"] == "":
+                valorSalario = "UNKNOWN"
+            else: 
+                valorSalario = jugador["wage_eur"]
+            if jugador["release_clause_eur"] == "":
+                valorClausulaContrato = "UNKNOWN"
+            else: 
+                valorClausulaContrato = jugador["release_clause_eur"]
+            if jugador["club_joined"] == "":
+                fechaVinculacion = "UNKNOWN"
+            else: 
+                fechaVinculacion = jugador["club_joined"]
+            if jugador["player_positions"] == "":
+                jugadorPosiciones = "UNKNOWN"
+            else: 
+                jugadorPosiciones = jugador["player_positions"]
+            if jugador["club_position"] == "":
+                clubPosiciones = "UNKNOWN"
+            else: 
+                clubPosiciones = jugador["club_position"]
+            if jugador["player_traits"] == "":
+                playerTraits = "UNKNOWN"
+            else: 
+                playerTraits = jugador["player_traits"]
+            if jugador["player_tags"] == "":
+                playerTags = "UNKNOWN"
+            else: 
+                playerTags= jugador["player_tags"]
+            print("\nNombre corto del jugador: " + str(shortName) + "\nFecha de nacimiento: " + str(fechaNacimiento) + "\nEdad: " + str(age) 
+            + "\nDesempeño general: " + str(overall) + "\nNacionalidad: " + str(nacionalidad) + "\nValor del contrato del jugador: " + str(valorContrato)
+            + "\nValor del salario del jugador: " + str(valorSalario) + "\nValor de la cláusula de liberación del jugador: " + str(valorClausulaContrato) + "\nFecha de vinculación al club: " + str(fechaVinculacion)
+            + "\nPosiciones en las que puede jugar : " + str(jugadorPosiciones) + " y la que ocupa en el club: " + str(clubPosiciones) + "\nComentarios: " + str(playerTraits) + "\nEtiquetas: " + str(playerTags))
+            i+=1
     print("\n------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 def printResultsReq2(lista, sample):
@@ -718,9 +718,14 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 0:
+        tamanioArchivo=input('Seleccione el tamanio del Alrchivo: \n1- Small \n2 -Large\n')
+        if tamanioArchivo=='2':
+            tamanioArchivo='large'
+        elif tamanioArchivo=='1':
+            tamanioArchivo='small'
         print("Cargando información de los archivos ....")
         analizer=controller.inicializarAnalizer()
-        listaData= controller.loadData(analizer)
+        listaData= controller.loadData(analizer, tamanioArchivo)
         listaData=om.valueSet(listaData)
         printCargaDatos(listaData,5)
 
