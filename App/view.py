@@ -38,11 +38,11 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("0- Cargar información en el catálogo (cargar datos)")
-    print("1- las cinco adquisiciones más recientes de un club (req 1): ")
-    print("2- los jugadores de cierta posición dentro de un rango de desempeño, potencial y salario (req 2): ")
-    print('3- Reportar los jugadores dentro de un rango salarial y con cierta etiqueta (req 3): ')
-    print('4- Reportar los jugadores con cierto rasgo característico y nacidos en un periodo de tiempo (req 4): ')
-
+    print("1- las cinco adquisiciones más recientes de un club (req 1) ")
+    print("2- los jugadores de cierta posición dentro de un rango de desempeño, potencial y salario (req 2) ")
+    print('3- Reportar los jugadores dentro de un rango salarial y con cierta etiqueta (req 3) ')
+    print('4- Reportar los jugadores con cierto rasgo característico y nacidos en un periodo de tiempo (req 4) ')
+    print('5- Graficar el histograma de una propiedad para los jugadores FIFA(req 5')
 def printCargaDatos(lista, sample):
         size = lt.size(lista)
         numJugadoresTotal=lt.size(lista)
@@ -709,6 +709,7 @@ def printReq5(llaves,listaCount, listaValoresFinal, listaAsteriscos, segmentos, 
     while i<=segmentos:
         print('BIN'+' |'+lt.getElement(listaAsteriscos, i))
         i+=1
+    print('\nCada "*" corresponde a '+str(niveles)+' jugadores\n')
     print('-------------------------------------------------------------------------------------------------------\n')
 
 """
@@ -718,7 +719,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 0:
-        tamanioArchivo=input('Seleccione el tamanio del Alrchivo: \n1- Small \n2 -Large\n')
+        tamanioArchivo=input('Seleccione el tamanio del Alrchivo: \n1- Small \n2- Large\n')
         if tamanioArchivo=='2':
             tamanioArchivo='large'
         elif tamanioArchivo=='1':
@@ -765,6 +766,7 @@ while True:
         propiedad=(input('Ingrese Propiedad: '))
         llaves,listaCount, listaValoresFinal, listaAsteriscos=controller.jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad)
         printReq5(llaves,listaCount, listaValoresFinal, listaAsteriscos, segmentos, niveles)
+        
 
     else:
         sys.exit(0)

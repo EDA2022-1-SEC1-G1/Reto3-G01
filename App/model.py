@@ -264,8 +264,22 @@ def jugadorFechaNacimiento(analizer, fechaInicio, fechaFinal, caracteristica):
         for jugador in lt.iterator(listaJugadores):
             if caracteristica in jugador["player_traits"]:
                 lt.addLast(listaFinal, jugador)
-    return listaFinal
+    listaJugadores=mer.sort(listaFinal, compReq4)
+    return listaJugadores
                 
+def compReq4(valor1, valor2):
+    dob1=datetime.datetime.strptime(valor1['dob'], '%Y-%m-%d')
+    dob2=datetime.datetime.strptime(valor2['dob'], '%Y-%m-%d')
+    if dob1 !=dob2:
+        return dob2<dob1
+    else:
+        if int(valor2['overall'])!= int(valor1['overall']):
+            return int(valor2['overall'])<int(valor1['overall'])
+        else:
+            if int(valor1['potential'])!= int(valor2['potential']):
+                return int(valor2['potential'])< int(valor1['potential'])
+            else:
+                return valor1['long_name']<valor2['long_name']
 #Funciones Comparacion
 def funcionComparacion2(valor1, valor2):
     '''
@@ -322,15 +336,6 @@ def jugadorValor(analizer, jugador):
             llaveValor=mp.get(analizer['jugadorValor'], valor)
             listaJugadores=me.getValue(llaveValor)
             lt.addLast(listaJugadores, jugador)
-    else:
-        valor=-1
-        if mp.contains(analizer['jugadorValor'],valor)==False:
-            listaJugadores=lt.newList('ARRAY_LIST')
-            lt.addLast(listaJugadores,jugador)
-            mp.put(analizer['jugadorValor'], valor, listaJugadores)
-        else:
-            llaveValor=mp.get(analizer['jugadorValor'], valor)
-            listaJugadores=me.getValue(llaveValor)
             lt.addLast(listaJugadores, jugador)
 
 def jugadorEdad(analizer, jugador):
@@ -377,16 +382,6 @@ def jugadorLiberar(analizer, jugador):
             llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
             listaJugadores=me.getValue(llaveValor)
             lt.addLast(listaJugadores, jugador)
-     else: 
-        liberar=-1
-        if mp.contains(analizer['jugadorLiberar'],liberar)==False:
-            listaJugadores=lt.newList('ARRAY_LIST')
-            lt.addLast(listaJugadores,liberar)
-            mp.put(analizer['jugadorLiberar'], liberar, listaJugadores)
-        else:
-            llaveValor=mp.get(analizer['jugadorLiberar'], liberar)
-            listaJugadores=me.getValue(llaveValor)
-            lt.addLast(listaJugadores, jugador)
 
 def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
     if propiedad == 'overall':
@@ -400,11 +395,11 @@ def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
     elif propiedad == 'age':
         mapaPropiedad=analizer['jugadorEdad']
     elif propiedad == 'height_cm':
-        mapaPropiedad=analizer['jugadorAltura']
-    elif propiedad == 'weight_cm':
+        mapaPropiedad=analizer['jugadorEstatura']
+    elif propiedad == 'weight_kg':
         mapaPropiedad=analizer['jugadorPeso']
     elif propiedad == 'release_clause_eur':
-        mapaPropiedad=analizer['jugadorValor']
+        mapaPropiedad=analizer['jugadorLiberar']
     llaves=lt.newList('ARRAY_LIST')
     listaValoresFinal=lt.newList('ARRAY_LIST')
     listaAsteriscos=lt.newList('ARRAY_LIST')
@@ -429,7 +424,6 @@ def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
         menorLlave=menorLlave-intervalos
         mayorLlave=mayorLlave-intervalos
         i+=1
-    print (listaCount)
     return llaves,listaCount, listaValoresFinal, listaAsteriscos
     
 
