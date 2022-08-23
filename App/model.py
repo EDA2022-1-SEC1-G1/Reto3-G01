@@ -428,7 +428,7 @@ def jugadoresPorCaracteristica(analizer, segmentos, niveles, propiedad):
     
 
 
-
+#isgmv;k3wmvormvol
 
 
 
